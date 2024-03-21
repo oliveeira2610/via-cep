@@ -15,12 +15,19 @@ html {
 body {
 	font-family: montserrat, arial, verdana;
 }
+
+
+
+
 /*styles*/
 #msform {
 	width: 400px;
 	margin: 50px auto;
 	text-align: center;
 	position: relative;
+	justify-content: center;
+	align-items: center;
+
 }
 #msform fieldset {
 	background: white;

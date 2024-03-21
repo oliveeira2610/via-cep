@@ -1,79 +1,62 @@
+// Variáveis para os elementos HTML
+var fieldsets = document.querySelectorAll("fieldset");
+var progressbar = document.getElementById("progressbar").querySelectorAll("li");
 
-//jQuery time
-var current_fs, next_fs, previous_fs; //fieldsets
-var left, opacity, scale; //fieldset properties which we will animate
-var animating; //flag to prevent quick multi-click glitches
+// Variáveis de controle
+var current_fs = 0;
+var animating = false;
 
-$(".next").click(function(){
-	if(animating) return false;
-	animating = true;
-	
-	current_fs = $(this).parent();
-	next_fs = $(this).parent().next();
-	
-	//activate next step on progressbar using the index of next_fs
-	$("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-	
-	//show the next fieldset
-	next_fs.show(); 
-	//hide the current fieldset with style
-	current_fs.animate({opacity: 0}, {
-		step: function(now, mx) {
-			//as the opacity of current_fs reduces to 0 - stored in "now"
-			//1. scale current_fs down to 80%
-			scale = 1 - (1 - now) * 0.2;
-			//2. bring next_fs from the right(50%)
-			left = (now * 50)+"%";
-			//3. increase opacity of next_fs to 1 as it moves in
-			opacity = 1 - now;
-			current_fs.css({
-        'transform': 'scale('+scale+')',
-        'position': 'absolute'
-      });
-			next_fs.css({'left': left, 'opacity': opacity});
-		}, 
-		duration: 800, 
-		complete: function(){
-			current_fs.hide();
-			animating = false;
-		}, 
-		//this comes from the custom easing plugin
-		easing: 'easeInOutBack'
-	});
+// Função para avançar para o próximo campo
+function nextFieldset() {
+    if (animating || current_fs >= fieldsets.length - 1) return false;
+    animating = true;
+
+    var next_fs = fieldsets[current_fs + 1];
+
+    // Ativar o próximo passo na barra de progresso
+    progressbar[current_fs + 1].classList.add("active");
+
+    // Ocultar o fieldset atual
+    fieldsets[current_fs].style.display = "none";
+
+    // Mostrar o próximo fieldset
+    next_fs.style.display = "block";
+
+    // Atualizar o índice do fieldset atual
+    current_fs++;
+
+    // Resetar a flag de animação
+    animating = false;
+}
+
+// Função para voltar para o fieldset anterior
+function previousFieldset() {
+    if (animating || current_fs <= 0) return false;
+    animating = true;
+
+    var previous_fs = fieldsets[current_fs - 1];
+
+    // Desativar o passo atual na barra de progresso
+    progressbar[current_fs].classList.remove("active");
+
+    // Ocultar o fieldset atual
+    fieldsets[current_fs].style.display = "none";
+
+    // Mostrar o fieldset anterior
+    previous_fs.style.display = "block";
+
+    // Atualizar o índice do fieldset atual
+    current_fs--;
+
+    // Resetar a flag de animação
+    animating = false;
+}
+
+// Event listeners para os botões de próxima e anterior
+document.querySelectorAll(".next").forEach(function(button) {
+    button.addEventListener("click", nextFieldset);
 });
 
-$(".previous").click(function(){
-	if(animating) return false;
-	animating = true;
-	
-	current_fs = $(this).parent();
-	previous_fs = $(this).parent().prev();
-	
-	//de-activate current step on progressbar
-	$("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
-	
-	//show the previous fieldset
-	previous_fs.show(); 
-	//hide the current fieldset with style
-	current_fs.animate({opacity: 0}, {
-		step: function(now, mx) {
-			//as the opacity of current_fs reduces to 0 - stored in "now"
-			//1. scale previous_fs from 80% to 100%
-			scale = 0.8 + (1 - now) * 0.2;
-			//2. take current_fs to the right(50%) - from 0%
-			left = ((1-now) * 50)+"%";
-			//3. increase opacity of previous_fs to 1 as it moves in
-			opacity = 1 - now;
-			current_fs.css({'left': left});
-			previous_fs.css({'transform': 'scale('+scale+')', 'opacity': opacity});
-		}, 
-		duration: 800, 
-		complete: function(){
-			current_fs.hide();
-			animating = false;
-		}, 
-		//this comes from the custom easing plugin
-		easing: 'easeInOutBack'
-	});
+document.querySelectorAll(".previous").forEach(function(button) {
+    button.addEventListener("click", previousFieldset);
 });
-

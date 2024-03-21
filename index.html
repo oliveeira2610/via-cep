@@ -5,44 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Via-cep</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous">
-        </script>
 </head>
 <body>
     <!-- multistep form -->
-<form id="msform">
-    <!-- progressbar -->
-    <ul id="progressbar">
-      <li class="active">Cadastro</li>
-      <li>Endereço</li>
+    <form id="msform">
+        <!-- progressbar -->
+        <ul id="progressbar">
+            <li class="active">Cadastro</li>
+            <li>Endereço</li>
+        </ul>
+        <!-- fieldsets -->
+        <fieldset>
+            <h2 class="fs-title">Cadastro</h2>
+            <h3 class="fs-subtitle">Insira seus dados para cadastro</h3>
+            <input type="text" name="name" placeholder="Nome" />
+            <input type="text" name="email" placeholder="Email" />
+            <input type="password" name="pass" placeholder="Senha" />
+            <input type="password" name="cpass" placeholder="Confirmar senha" />
+            <input type="button" name="next" class="next action-button" value="Próximo" />
+        </fieldset>
+        <fieldset>
+            <h2 class="fs-title">Endereço</h2>
+            <h3 class="fs-subtitle">Insira seu Endereço</h3>
+            <input type="text" name="cep" placeholder="Cep" />
+            <input type="text" name="rua" placeholder="Rua" />
+            <input type="text" name="cidade" placeholder="Cidade" />
+            <input type="text" name="estado" placeholder="Estado" />
+            <input type="text" name="numero" placeholder="Numero" />
+            <input type="button" name="previous" class="previous action-button" value="Voltar" />
+            <input type="button" name="next" class="next action-button" value="Próximo" />
+        </fieldset>
         
-    </ul>
-    <!-- fieldsets -->
-    <fieldset>
-      <h2 class="fs-title">Cadastro</h2>
-      <h3 class="fs-subtitle">Insira seus dados para cadastro</h3>
-      <input type="text" name="name" placeholder="Nome" />
-      <input type="text" name="email" placeholder="Email" />
-      <input type="password" name="pass" placeholder="Senha" />
-      <input type="password" name="cpass" placeholder="Confirmar senha" />
-      <input type="button" name="next" class="next action-button" value="next" />
-    </fieldset>
-    <fieldset>
-      <h2 class="fs-title">Endereço</h2>
-      <h3 class="fs-subtitle">Insira seu Endereço</h3>
-      <input type="text" name="cep" placeholder="Cep" />
-      <input type="text" name="rua" placeholder="Rua" />
-      <input type="text" name="cidade" placeholder="Cidade" />
-      <input type="text" name="estado" placeholder="Estado" />
-      <input type="text" name="numero" placeholder="Numero" />
-      <input type="button" name="previous" class="previous action-button" value="Voltar" />
-      <input type="button" name="next" class="next action-button" value="Próximo" />
-    </fieldset>
-    
-  </form>
+        <script src="main.js"></script>
+    </form>
 
-  <script src="main.js"></script>
 </body>
-
 </html>
